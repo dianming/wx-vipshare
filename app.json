@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/account/account",
+    "pages/accountList/accountList",
+    "pages/accountShow/accountShow"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#609bf7",
+    "navigationBarTitleText": "我是标题",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "为了更好的提供服务需要获取您的位置"
+    }
+  }
+}

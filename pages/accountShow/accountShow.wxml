@@ -1,0 +1,16 @@
+<!--pages/accountShow/accountShow.wxml-->
+
+<view style='margin:20px 20px 0px 20px;line-height:22px;'>
+  <text space="emsp">昨夜西风凋敝树\n独上西楼\n望尽天涯路</text>
+</view>
+<view style='margin:20px 20px 0px 20px'>
+  <view>
+    <view style='margin:5px 5px 5px 5px;'><text>{{accountInfo.user}}</text></view>
+    <view><button bindtap='copyAccount' data-account="{{accountInfo.user}}">复制账号</button></view>
+  </view>
+  <view>
+    <view style='margin:5px 5px 5px 5px;'><text>{{accountInfo.pwd}}</text></view>
+    <view><button bindtap='copyPwd' data-pwd="{{accountInfo.pwd}}">复制密码</button></view>
+  </view>
+
+</view>

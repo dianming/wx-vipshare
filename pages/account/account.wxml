@@ -1,0 +1,15 @@
+<wxs src="account.wxs" module="tools" />
+
+<form bindsubmit="addAccount">
+  <view>xxxxxxxx</view>
+  <view>
+    <input type='text' name="videoName" placeholder='腾讯视频' />
+    <input type='text' name="user" placeholder='账号' />
+    <input type='text' name="pwd" placeholder='密码' />
+    <picker mode="date" name="endDate" bindchange="bindDateChange">
+      <view class="picker">结束日期: {{startDate}}</view>
+    </picker>
+    <button form-type='submit'>保存</button>
+  </view>
+</form>
+

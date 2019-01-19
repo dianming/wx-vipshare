@@ -1,0 +1,23 @@
+<!--pages/account/accountList.wxml-->
+
+<view class='wrap' wx:for="{{listData}}" wx:key="i" wx:for-item="rowData" data-id='{{rowData.id}}' bindtap='getAccount'>
+  <view style='display:flex;'>
+    <view style='width:15%'>
+      <image class='user-img' src='{{rowData.avatarUrl}}' />
+    </view>
+    <view style='width:85%;padding-top:10px;font-family:微软雅黑;font-size:35rpx'>
+      <text>{{rowData.nickName}}</text>
+    </view>
+  </view>
+  <view style='display:flex;'>
+    <view style='width:30%'>
+      <text>{{rowData.videoName}}</text>
+    </view>
+    <view style='width:30%'>
+      <text>{{rowData.endDate}}</text>
+    </view>
+    <view style='width:40%;text-align:right;'>
+      <text style='font-size:25rpx'>使用次数</text><text> {{rowData.useCount}}</text>
+    </view>
+  </view>
+</view>
