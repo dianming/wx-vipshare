@@ -33,7 +33,7 @@ Page({
     detail.avatarUrl = userInfo.avatarUrl
 
     wx.request({
-      url: 'http://localhost:8080/account/use',
+      url: 'http://192.168.31.214:8080/account/use',
       data: detail,
       success(res) {
         console.log("获取账号信息");

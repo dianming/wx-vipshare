@@ -10,20 +10,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var userInfo = wx.getStorageSync("userInfo")
     // 授权检查
     wx.getSetting({
       success: (res) => {
-        if (!res.authSetting['scope.userInfo'])
+        console.log("授权---" + res.authSetting['scope.userInfo']);
+        if (!res.authSetting['scope.userInfo']) {
+          wx.clearStorageSync();
           wx.reLaunch({
             url: '/pages/index/index'
           })
+        }
       }
     })
     var that = this;
-    var userInfo = wx.getStorageSync("userInfo")
+
     var result;
     wx.request({
-      url: 'http://localhost:8080/account/getList?id=14',
+      url: 'http://192.168.31.214:8080/account/getList',
       data: {
         id: userInfo.id
       },
@@ -35,6 +39,19 @@ Page({
         })
       }
     })
+
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {
+        console.log("位置信息");
+        console.log(res);
+        res.accountId = accountId
+        wx.navigateTo({
+          url: '/pages/accountShow/accountShow?detail=' + JSON.stringify(res)
+        })
+      }
+    })
+
   },
 
   /**
@@ -89,6 +106,16 @@ Page({
     var that = this;
     var accountId = e.currentTarget.dataset.id;
     console.log("获取位置信息才可继续");
+
+    //判断是否获得了用户地理位置授权
+    wx.getSetting({
+      success: (res) => {
+        if (!res.authSetting['scope.userLocation']) {
+          that.openConfirm()
+        }
+      }
+    })
+
     wx.getLocation({
       type: 'wgs84',
       success(res) {
@@ -96,15 +123,8 @@ Page({
         console.log(res);
         res.accountId = accountId
         wx.navigateTo({
-          url: '/pages/accountShow/accountShow?detail='+JSON.stringify(res)
+          url: '/pages/accountShow/accountShow?detail=' + JSON.stringify(res)
         })
-      }
-    })
-    //判断是否获得了用户地理位置授权
-    wx.getSetting({
-      success: (res) => {
-        if (!res.authSetting['scope.userLocation'])
-          that.openConfirm()
       }
     })
 

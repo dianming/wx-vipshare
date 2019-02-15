@@ -7,6 +7,7 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
+    isVip: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
@@ -16,47 +17,20 @@ Page({
     })
   },
   onLoad: function() {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
+    console.log("onLoad");
+    console.log(wx.getStorageSync("userInfo"));
+    var userInfoCache = wx.getStorageSync("userInfo")
+    var vip = userInfoCache.vip == 1 ? true : false;
+    if (vip) {
+      wx.reLaunch({
+        url: "/pages/accountList/accountList"
       })
     }
   },
   getUserInfo: function(e) {
     console.log("获取userInfo index页面")
-    // var authUserInfoBoolean;
-    // wx.getSetting({
-    //   success: res => {
-    //     console.log(res.authSetting);
-    //     authUserInfoBoolean = res.authSetting['scope.userInfo']        
-    //   }
-    // })
-    // console.log("userInfo授权状态" + authUserInfoBoolean);
-    // if (!authUserInfoBoolean) {
-    //   return;
-    // };
-    if(e.detail.userInfo == undefined){
+
+    if (e.detail.userInfo == undefined) {
       return;
     }
     // 全局缓存
@@ -69,21 +43,47 @@ Page({
     e.detail.userInfo.openId = wx.getStorageSync("openId")
     // 请求
     wx.request({
-      url: 'http://localhost:8080/login/login',
+      url: 'http://192.168.31.214:8080/login/login',
       data: e.detail.userInfo,
       success(res) {
         try {
           console.log("授权返回");
           console.log(res.data.data);
           wx.setStorageSync("userInfo", res.data.data)
+          var vip = res.data.data.vip == 1;
+          if (vip) {
+            wx.reLaunch({
+              url: "/pages/accountList/accountList"
+            })
+          }
+          this.setData({
+            userInfo: userInfoCache,
+            hasUserInfo: false,
+            isVip: vip
+          })
         } catch (e) {}
       }
     })
+
   },
   reqCheckSign: function(e) {
     console.log(e.detail.value.signtext);
-    wx.navigateTo({
-      url: "/pages/account/account?id=1"
-    });
+    var userInfoCache = wx.getStorageSync("userInfo")
+    wx.request({
+      url: 'http://192.168.31.214:8080/login/sign',
+      data: {
+        id:userInfoCache.id,
+        code:e.detail.value.signtext
+      },
+      success(res) {
+        if(res != null && res.data.code == "200"){
+          wx.reLaunch({
+            url: "/pages/accountList/accountList"
+          });
+        }
+        
+      }
+    })
+
   }
 })

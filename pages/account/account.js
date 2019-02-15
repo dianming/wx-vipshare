@@ -32,7 +32,7 @@ Page({
     console.log(e.detail.value);
     var result;
     wx.request({
-      url: 'http://localhost:8080/account/add',
+      url: 'http://192.168.31.214:8080/account/add',
       data: e.detail.value,
       success(res) {
         console.log("添加完成");
