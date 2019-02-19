@@ -1,16 +1,33 @@
 <!--pages/accountShow/accountShow.wxml-->
 
-<view style='margin:20px 20px 0px 20px;line-height:22px;'>
-  <text space="emsp">昨夜西风凋敝树\n独上西楼\n望尽天涯路</text>
+<view class="motto">
+  <text space="emsp">昨夜西风凋敝树</text>
 </view>
-<view style='margin:20px 20px 0px 20px'>
+<view class="account_wran">
   <view>
-    <view style='margin:5px 5px 5px 5px;'><text>{{accountInfo.user}}</text></view>
-    <view><button bindtap='copyAccount' data-account="{{accountInfo.user}}">复制账号</button></view>
+    <view class='account_text'>
+      <text>{{accountInfo.user}}</text>
+    </view>
+    <view>
+      <button bindtap='copyAccount' class='copy_but' data-account="{{accountInfo.user}}">复制账号</button>
+    </view>
   </view>
   <view>
-    <view style='margin:5px 5px 5px 5px;'><text>{{accountInfo.pwd}}</text></view>
-    <view><button bindtap='copyPwd' data-pwd="{{accountInfo.pwd}}">复制密码</button></view>
+    <view class="account_text">
+      <text>{{accountInfo.pwd}}</text>
+    </view>
+    <view>
+      <button bindtap='copyPwd' class='copy_but' data-pwd="{{accountInfo.pwd}}">复制密码</button>
+    </view>
   </view>
 
+</view>
+<view style='height:230px'>
+  <form bindsubmit="formSuggest">
+    <input hidden='true' value='{{accountInfo.user}}' name="user"></input>
+    <input hidden='true' value='{{accountInfo.id}}' name="id"></input>
+    <text style='color:#34a853'>{{suggestMsg}}</text>
+    <textarea maxlength="140" name="suggest" placeholder="反馈内容" class='suggest_text'></textarea>
+    <button form-type="submit" class='suggest_submit'>提交</button>
+  </form>
 </view>

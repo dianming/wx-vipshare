@@ -1,10 +1,11 @@
 //index.js
 //获取应用实例
+const urls = require('../../utils/urls.js');
 const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
+    motto: '文明使用',
     userInfo: {},
     hasUserInfo: false,
     isVip: false,
@@ -29,7 +30,6 @@ Page({
   },
   getUserInfo: function(e) {
     console.log("获取userInfo index页面")
-
     if (e.detail.userInfo == undefined) {
       return;
     }
@@ -42,8 +42,9 @@ Page({
     })
     e.detail.userInfo.openId = wx.getStorageSync("openId")
     // 请求
+    console.log(urls);
     wx.request({
-      url: 'http://192.168.31.214:8080/login/login',
+      url: urls.indexLogin,
       data: e.detail.userInfo,
       success(res) {
         try {
@@ -55,12 +56,11 @@ Page({
             wx.reLaunch({
               url: "/pages/accountList/accountList"
             })
+          } else {
+            wx.reLaunch({
+              url: "/pages/account/account"
+            })
           }
-          this.setData({
-            userInfo: userInfoCache,
-            hasUserInfo: false,
-            isVip: vip
-          })
         } catch (e) {}
       }
     })
@@ -70,18 +70,18 @@ Page({
     console.log(e.detail.value.signtext);
     var userInfoCache = wx.getStorageSync("userInfo")
     wx.request({
-      url: 'http://192.168.31.214:8080/login/sign',
+      url: urls.indexSign,
       data: {
-        id:userInfoCache.id,
-        code:e.detail.value.signtext
+        id: userInfoCache.id,
+        code: e.detail.value.signtext
       },
       success(res) {
-        if(res != null && res.data.code == "200"){
+        if (res != null && res.data.code == "200") {
           wx.reLaunch({
-            url: "/pages/accountList/accountList"
+            url: "/pages/account/account"
           });
         }
-        
+
       }
     })
 

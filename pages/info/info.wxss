@@ -1,0 +1,80 @@
+/* pages/info/info.wxss */
+@import "/pages/account/account.wxss";
+
+.touimage {
+  /* 居中 */
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  width: 161rpx;
+  height: 161rpx;
+  border-radius: 50%;
+}
+
+.tab {
+  float: left;
+  width: 50%;
+  text-align: center;
+  padding: 10rpx 0;
+  background-color: #34a853;
+  color: #fff;
+  line-height: 30px;
+}
+
+.topTabSwiper {
+  /* border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  zoom: 1; */
+}
+
+.topTabSwiper:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.tabBorer {
+  border-bottom: 3px solid #fbbc05;
+  color: #fff;
+  background-color: #4285f4;
+}
+
+.swiper {
+  width: 100%;
+}
+
+.swiper_con {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper_con1 {
+}
+
+.but_del {
+  width: 60px;
+  background-color: #ea4335;
+  color: #fff;
+  font-size: 15px;
+  line-height: 28px;
+}
+
+.ward_con1 {
+  display: flex;
+  margin-top: 30px;
+}
+
+.info_sub {
+  background-color: #609bf7;
+  color: #fff;
+  width: 100px;
+  margin-top: 10px;
+}
+
+.info_res {
+  background-color: #ea4335;
+  color: #fff;
+  width: 65px;
+  margin-top: 10px;
+}

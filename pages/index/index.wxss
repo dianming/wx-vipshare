@@ -1,4 +1,5 @@
 /**index.wxss**/
+
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -17,11 +18,17 @@
 }
 
 .usermotto {
-  margin-top: 200px;
+  height: 200px;
 }
 
-.input-sign{
-  text-align:center;
-  border:1px solid blue;
-  border-radius:10px;
+.input-sign {
+  text-align: center;
+  border: 1px solid #609bf7;
+  border-radius: 5px;
+  padding: 5px 0 5px 0;
+}
+
+.user_info_btn {
+  background-color: #609bf7;
+  color: #fff;
 }

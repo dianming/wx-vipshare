@@ -1,7 +1,9 @@
+
+const urls = require('../../utils/urls.js');
+
 Page({
   data: { // 参与页面渲染的数据
-    logs: [],
-    urlimg: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKrOicBUen9JgkvfeBVTGy6H4nZXj6DaQZfRa59vqx8mA9dUdqd7zqE2e6p4Ifg4v1YHIMVWEvenUA/132"
+    
   },
   onLoad() {
     // 授权检查
@@ -23,6 +25,7 @@ Page({
     console.log("刷新数据");
   },
   addAccount(e) {
+    var that = this;
     console.log("添加账号");
     var userInfo = wx.getStorageSync("userInfo");
     e.detail.value.status = 0;
@@ -32,21 +35,30 @@ Page({
     console.log(e.detail.value);
     var result;
     wx.request({
-      url: 'http://192.168.31.214:8080/account/add',
+      url: urls.accountAdd,
       data: e.detail.value,
       success(res) {
         console.log("添加完成");
         console.log(res);
-        wx.navigateTo({
-          url: "/pages/accountList/accountList"
-        });
+        var resData = res.data;
+        if (resData.code == "200") {
+          wx.setStorageSync("userInfo", resData.data)
+          wx.reLaunch({
+            url: "/pages/accountList/accountList"
+          });
+        } else {
+          that.setData({
+            codeError: true
+          })
+        }
       }
     })
+
   },
   bindDateChange(e) {
     console.log(e);
     this.setData({
-      startDate: e.detail.value
+      endDate: e.detail.value
     })
   }
 })

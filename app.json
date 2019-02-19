@@ -4,17 +4,37 @@
     "pages/logs/logs",
     "pages/account/account",
     "pages/accountList/accountList",
-    "pages/accountShow/accountShow"
+    "pages/accountShow/accountShow",
+    "pages/info/info"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#609bf7",
-    "navigationBarTitleText": "我是标题",
+    "navigationBarTitleText": "世界很小",
     "navigationBarTextStyle": "black"
   },
   "permission": {
     "scope.userLocation": {
       "desc": "为了更好的提供服务需要获取您的位置"
     }
+  },
+  "tabBar": {
+    "color": "#34a853",
+    "selectedColor": "#34a853",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "/pages/images/l.png",
+        "iconPath": "/pages/images/l.png",
+        "pagePath": "pages/accountList/accountList",
+        "text": "账号列表"
+      },
+      {
+        "selectedIconPath": "/pages/images/m.png",
+        "iconPath": "/pages/images/m.png",
+        "pagePath": "pages/info/info",
+        "text": "我的"
+      }
+    ]
   }
 }

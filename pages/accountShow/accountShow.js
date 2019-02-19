@@ -1,4 +1,8 @@
 // pages/accountShow/accountShow.js
+
+const urls = require('../../utils/urls.js');
+
+
 Page({
 
   /**
@@ -33,7 +37,7 @@ Page({
     detail.avatarUrl = userInfo.avatarUrl
 
     wx.request({
-      url: 'http://192.168.31.214:8080/account/use',
+      url: urls.accountShowUse,
       data: detail,
       success(res) {
         console.log("获取账号信息");
@@ -121,5 +125,26 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  formSuggest: function(e) {
+    var that = this;
+    var userInfo = wx.getStorageSync("userInfo");
+    var obj = e.detail.value;
+    wx.request({
+      url: urls.accountShowAdd,
+      data: {
+        msg: obj.suggest,
+        user: obj.user,
+        accountId: obj.id,
+        wxUserId: userInfo.id
+
+      },
+      success(res) {
+        console.log(res);
+        that.setData({
+          suggestMsg:"谢谢反馈意见( •̀ ω •́ )✧"
+        })
+      }
+    })
   }
 })

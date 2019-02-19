@@ -1,0 +1,48 @@
+<view style='text-align:center;height:150px;margin-top:50px;'>
+  <open-data class="touimage" type="userAvatarUrl"></open-data>
+  <open-data type="userNickName"></open-data>
+</view>
+<view class='topTabSwiper'>
+  <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>保存账号</view>
+  <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>账号管理</view>
+</view>
+<swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
+  <swiper-item>
+    <view class='swiper_con'>
+      <view>
+        <form bindsubmit="addAccount">
+          <view></view>
+          <view style='margin:30px;'>
+            <input hidden='true' type='text' value='{{info.id}}' name="id" />
+            <label>例如：腾讯视频</label>
+            <input type='text' value='{{info.videoName}}' maxlength="50" name="videoName" />
+            <label>账号</label>
+            <input type='text' value='{{info.user}}' maxlength="50" name="user" />
+            <label>密码</label>
+            <input type='text' value='{{info.pwd}}' maxlength="50" name="pwd" />
+            <label>会员结束日期</label>
+            <picker mode="date" name="endDate" wx:if='{{!endDate}}' value='{{info.endDate}}' bindchange="bindDateChange">
+              <view class="picker">日期: {{info.endDate}}</view>
+            </picker>
+            <picker mode="date" name="endDate" wx:else value='{{endDate}}' bindchange="bindDateChange">
+              <view class="picker">日期: {{endDate}}</view>
+            </picker>
+            <view style='display:flex'>
+              <button class="info_sub" form-type='submit'>提交</button>
+              <button class="info_res" form-type='reset'>清空</button>
+            </view>
+          </view>
+        </form>
+      </view>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view class='swiper_con1'>
+      <view class='ward_con1' wx:for="{{userRows}}" wx:key="i" wx:for-item="rowData" data-id='{{rowData.id}}'>
+        <label bindtap="getAccountInfo" data-id="{{rowData.id}}">{{rowData.user}}</label>
+        <button class='but_del' bindtap="del" data-id='{{rowData.id}}' data-wxUserId='{{rowData.wxUserId}}'>删除</button>
+      </view>
+    </view>
+  </swiper-item>
+
+</swiper>

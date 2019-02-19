@@ -1,1 +1,33 @@
 /* pages/accountShow/accountShow.wxss */
+
+.copy_but {
+  width: 125px;
+  background-color: #609bf7;
+  color: #fff;
+}
+
+.suggest_text {
+  border: 1px solid #f07d73;
+  padding: 5px 5px 5px 5px;
+  height: 110px;
+}
+
+.suggest_submit {
+  width: 125px;
+  background-color: #f07d73;
+  color: #fff;
+}
+
+.motto {
+  margin: 20px 20px 0px 20px;
+  line-height: 22px;
+}
+
+.account_wran {
+  margin: 20px 20px 0px 20px;
+  height: 215px;
+}
+
+.account_text {
+  margin: 5px 5px 5px 5px;
+}

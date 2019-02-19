@@ -1,15 +1,21 @@
-<wxs src="account.wxs" module="tools" />
-
-<form bindsubmit="addAccount">
-  <view>xxxxxxxx</view>
-  <view>
-    <input type='text' name="videoName" placeholder='腾讯视频' />
-    <input type='text' name="user" placeholder='账号' />
-    <input type='text' name="pwd" placeholder='密码' />
-    <picker mode="date" name="endDate" bindchange="bindDateChange">
-      <view class="picker">结束日期: {{startDate}}</view>
-    </picker>
-    <button form-type='submit'>保存</button>
-  </view>
-</form>
-
+<view>
+  <form bindsubmit="addAccount">
+    <view></view>
+    <view style='margin:30px;'>
+      <label>例如：腾讯视频</label>
+      <input type='text' maxlength="50" name="videoName" />
+      <label>账号</label>
+      <input type='text' maxlength="50" name="user" />
+      <label>密码</label>
+      <input type='text' maxlength="50" name="pwd" />
+      <label>会员结束日期</label>
+      <picker mode="date" name="endDate" bindchange="bindDateChange">
+        <view class="picker">日期: {{endDate}}</view>
+      </picker>
+      <label wx:if="{{!codeError}}">邀请码</label>
+      <label style="color:#eb4b3d" wx:if="{{codeError}}">邀请码错误</label>
+      <input class="input-sign" name="signtext" maxlength="10" />
+      <button class="account_sub" form-type='submit'>提交</button>
+    </view>
+  </form>
+</view>

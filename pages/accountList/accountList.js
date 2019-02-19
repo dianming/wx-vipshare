@@ -1,4 +1,7 @@
 // pages/account/accountList.js
+
+const urls = require('../../utils/urls.js');
+
 Page({
 
   /**
@@ -10,24 +13,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this;
     var userInfo = wx.getStorageSync("userInfo")
+    if (userInfo == null || userInfo.vip != 1) {
+      that.toIndex();
+    }
     // 授权检查
     wx.getSetting({
       success: (res) => {
         console.log("授权---" + res.authSetting['scope.userInfo']);
         if (!res.authSetting['scope.userInfo']) {
-          wx.clearStorageSync();
-          wx.reLaunch({
-            url: '/pages/index/index'
-          })
+          that.toIndex();
         }
       }
     })
-    var that = this;
-
     var result;
     wx.request({
-      url: 'http://192.168.31.214:8080/account/getList',
+      url: urls.accountListGetList,
       data: {
         id: userInfo.id
       },
@@ -42,18 +44,16 @@ Page({
 
     wx.getLocation({
       type: 'wgs84',
-      success(res) {
-        console.log("位置信息");
-        console.log(res);
-        res.accountId = accountId
-        wx.navigateTo({
-          url: '/pages/accountShow/accountShow?detail=' + JSON.stringify(res)
-        })
-      }
+      success(res) {}
     })
 
   },
-
+  toIndex: function() {
+    wx.clearStorageSync();
+    wx.reLaunch({
+      url: '/pages/index/index'
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -148,4 +148,5 @@ Page({
       }
     });
   },
+
 })
