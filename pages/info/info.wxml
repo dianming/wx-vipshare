@@ -14,13 +14,13 @@
           <view></view>
           <view style='margin:30px;'>
             <input hidden='true' type='text' value='{{info.id}}' name="id" />
-            <label>例如：腾讯视频</label>
+            <label class="label_text {{videoNameValid?'error_label':''}}">例如：腾讯视频</label>
             <input type='text' value='{{info.videoName}}' maxlength="50" name="videoName" />
-            <label>账号</label>
+            <label class="label_text {{userValid?'error_label':''}}">账号</label>
             <input type='text' value='{{info.user}}' maxlength="50" name="user" />
-            <label>密码</label>
+            <label class="label_text {{pwdValid?'error_label':''}}">密码</label>
             <input type='text' value='{{info.pwd}}' maxlength="50" name="pwd" />
-            <label>会员结束日期</label>
+            <label class="label_text {{endDateValid?'error_label':''}}">会员结束日期</label>
             <picker mode="date" name="endDate" wx:if='{{!endDate}}' value='{{info.endDate}}' bindchange="bindDateChange">
               <view class="picker">日期: {{info.endDate}}</view>
             </picker>

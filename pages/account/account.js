@@ -1,9 +1,8 @@
-
 const urls = require('../../utils/urls.js');
 
 Page({
   data: { // 参与页面渲染的数据
-    
+
   },
   onLoad() {
     // 授权检查
@@ -24,7 +23,7 @@ Page({
   flushtest() {
     console.log("刷新数据");
   },
-  addAccount(e) {
+  addAccount: function(e) {
     var that = this;
     console.log("添加账号");
     var userInfo = wx.getStorageSync("userInfo");
@@ -33,7 +32,9 @@ Page({
     e.detail.value.nickName = userInfo.nickName
     e.detail.value.avatarUrl = userInfo.avatarUrl
     console.log(e.detail.value);
-    var result;
+    if (this.validForm(e)) {
+      return;
+    }
     wx.request({
       url: urls.accountAdd,
       data: e.detail.value,
@@ -54,6 +55,36 @@ Page({
       }
     })
 
+  },
+  validForm: function(e) {
+    console.log("校验表单");
+    var objForm = e.detail.value;
+    var videoBool = false,
+      userBool = false,
+      pwdBool = false,
+      endDateBool = false
+    if (objForm.videoName.trim() == "") {
+      videoBool = true;
+    }
+    if (objForm.user.trim() == "") {
+      userBool = true;
+    }
+    if (objForm.pwd.trim() == "") {
+      pwdBool = true;
+    }
+    if (objForm.endDate.trim() == "") {
+      endDateBool = true;
+    }
+    this.setData({
+      videoNameValid: videoBool,
+      userValid: userBool,
+      pwdValid: pwdBool,
+      endDateValid: endDateBool
+    });
+    if (videoBool || userBool || pwdBool || endDateBool) {
+      return true;
+    }
+    return false;
   },
   bindDateChange(e) {
     console.log(e);

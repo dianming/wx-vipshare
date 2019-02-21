@@ -11,7 +11,8 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#609bf7",
     "navigationBarTitleText": "世界很小",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
   },
   "permission": {
     "scope.userLocation": {

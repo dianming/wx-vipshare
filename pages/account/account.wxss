@@ -13,7 +13,7 @@ picker {
   color: #609bf7;
 }
 
-label {
+.label_text {
   margin-left: 10px;
   font-size: 16px;
   color: #34a853;
@@ -24,4 +24,12 @@ label {
   color: #fff;
   width: 100px;
   margin-top: 10px;
+}
+
+.error_label {
+  color: #eb4b3d;
+}
+
+.def_label {
+  color: #34a853;
 }

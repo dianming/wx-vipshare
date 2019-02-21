@@ -1,4 +1,6 @@
 //app.js
+const urls = require('utils/urls.js');
+
 App({
   onLaunch: function() {
     // 登录
@@ -6,7 +8,7 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         wx.request({
-          url: 'http://192.168.31.214:8080/login/getOpenId',
+          url: urls.loginGetOpenId,
           data: {
             code: res.code
           },
@@ -36,7 +38,7 @@ App({
               }
             }),
             wx.request({
-              url: 'http://192.168.31.214:8080/login/login',
+              url: urls.indexLogin,
               data: wx.getStorageSync("userInfo"),
               success(res) {
                 try {

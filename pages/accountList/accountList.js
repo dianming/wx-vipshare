@@ -8,7 +8,6 @@ Page({
    * 页面的初始数据
    */
   data: {},
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -27,7 +26,15 @@ Page({
         }
       }
     })
-    var result;
+    this.refreshList(userInfo);
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {}
+    })
+
+  },
+  refreshList: function(userInfo) {
+    var that = this;
     wx.request({
       url: urls.accountListGetList,
       data: {
@@ -35,18 +42,12 @@ Page({
       },
       success(res) {
         console.log("列表");
-        result = res.data.data;
+        var result = res.data.data;
         that.setData({
           listData: result
         })
       }
     })
-
-    wx.getLocation({
-      type: 'wgs84',
-      success(res) {}
-    })
-
   },
   toIndex: function() {
     wx.clearStorageSync();
@@ -79,13 +80,17 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    wx.showNavigationBarLoading()
+    var userInfo = wx.getStorageSync("userInfo")
+    this.refreshList(userInfo)
+    wx.hideNavigationBarLoading()
 
   },
 

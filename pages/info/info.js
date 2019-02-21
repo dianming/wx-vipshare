@@ -1,3 +1,5 @@
+const urls = require('../../utils/urls.js');
+
 Page({
 
   /**
@@ -34,12 +36,15 @@ Page({
   addAccount: function(e) {
     var that = this;
     console.log("添加账号");
+    if (this.validForm(e)) {
+      return;
+    }
     var userInfo = wx.getStorageSync("userInfo");
     e.detail.value.wxUserId = userInfo.id
     e.detail.value.nickName = userInfo.nickName
     e.detail.value.avatarUrl = userInfo.avatarUrl
     wx.request({
-      url: 'http://192.168.31.214:8080/account/addAccount',
+      url: urls.accountAddAccount,
       data: e.detail.value,
       success(res) {
         var resData = res.data;
@@ -55,11 +60,41 @@ Page({
       }
     })
   },
+  validForm: function(e) {
+    console.log("校验表单");
+    var objForm = e.detail.value;
+    var videoBool = false,
+      userBool = false,
+      pwdBool = false,
+      endDateBool = false
+    if (objForm.videoName.trim() == "") {
+      videoBool = true;
+    }
+    if (objForm.user.trim() == "") {
+      userBool = true;
+    }
+    if (objForm.pwd.trim() == "") {
+      pwdBool = true;
+    }
+    if (objForm.endDate == null || objForm.endDate.trim() == "") {
+      endDateBool = true;
+    }
+    this.setData({
+      videoNameValid: videoBool,
+      userValid: userBool,
+      pwdValid: pwdBool,
+      endDateValid: endDateBool
+    });
+    if (videoBool || userBool || pwdBool || endDateBool) {
+      return true;
+    }
+    return false;
+  },
   del: function(e) {
     const that = this;
     var obj = e.target.dataset
     wx.request({
-      url: 'http://192.168.31.214:8080/account/del',
+      url: urls.accountDel,
       data: {
         wxUserId: obj.wxuserid,
         id: obj.id
@@ -73,7 +108,7 @@ Page({
     var that = this;
     var obj = e.target.dataset;
     wx.request({
-      url: 'http://192.168.31.214:8080/account/getInfo',
+      url: urls.accountGetInfo,
       data: {
         id: obj.id
       },
@@ -91,7 +126,7 @@ Page({
     var that = this;
     var userInfo = wx.getStorageSync("userInfo")
     wx.request({
-      url: 'http://192.168.31.214:8080/account/getByList',
+      url: urls.accountGetByList,
       data: {
         wxUserId: userInfo.id
       },
@@ -112,7 +147,7 @@ Page({
     // obj.endDate = e.detail.value;
     this.setData({
       // info: obj
-      endDate:e.detail.value
+      endDate: e.detail.value
     })
   }
 })
